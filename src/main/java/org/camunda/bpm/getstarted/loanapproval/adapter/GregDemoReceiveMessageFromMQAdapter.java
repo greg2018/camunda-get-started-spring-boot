@@ -102,7 +102,7 @@ public class GregDemoReceiveMessageFromMQAdapter {
 		 ObjectMapper objectMapper = new ObjectMapper();
 		 
 		
-		  logger.info("++++++GregDemoReceiveMessageFromMQAdapter->receiveUpdateCustomerFullNameModel->p2p_order_payload_routingkey:");	
+		  logger.info("++++++GregDemoReceiveMessageFromMQAdapter->receiveUpdateCustomerFullNameModel->p2p_updatecustomerfullnamemodel_routingkey:");	
 		  String jsonArray=new String(bytes);
 		  logger.info(jsonArray);
 		 UpdateCustomerFullNameModel  updateCustomerFullNameModel=objectMapper.readValue(bytes, UpdateCustomerFullNameModel.class);
