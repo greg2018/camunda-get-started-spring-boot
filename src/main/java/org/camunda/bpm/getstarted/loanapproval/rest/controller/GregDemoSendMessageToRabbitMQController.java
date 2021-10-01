@@ -35,5 +35,31 @@ public class GregDemoSendMessageToRabbitMQController {
 	      gregDemoSendMessageToRabbitMQAdater.sendMessageToRabbitMQ(gregDemoSendMessageToRabbitMQRequest);
 	      return ResponseEntity.status(HttpStatus.CREATED).body(commonResponse);
 	  }
+	 
+	 
+	 @PostMapping(path = "payload", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	  public ResponseEntity<?> sendMessagePayLoadToRabbitMQ(@RequestBody GregDemoSendMessageToRabbitMQRequest gregDemoSendMessageToRabbitMQRequest) throws Exception {	 
+		 logger.info(gregDemoSendMessageToRabbitMQRequest.toString());
+	      CommonResponse commonResponse=new CommonResponse();
+	      commonResponse.setResultFlag(true);
+	      commonResponse.setMessage("success");	  
+	      logger.info(commonResponse.getMessage());
+	      
+	      gregDemoSendMessageToRabbitMQAdater.sendMessagePayLoadToRabbitMQ(gregDemoSendMessageToRabbitMQRequest);
+	      return ResponseEntity.status(HttpStatus.CREATED).body(commonResponse);
+	  }
+	 
+	 @PostMapping(path = "payload2", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	  public ResponseEntity<?> sendMessagePayLoadToRabbitMQByBytes(@RequestBody GregDemoSendMessageToRabbitMQRequest gregDemoSendMessageToRabbitMQRequest) throws Exception {	 
+		 logger.info(gregDemoSendMessageToRabbitMQRequest.toString());
+	      CommonResponse commonResponse=new CommonResponse();
+	      commonResponse.setResultFlag(true);
+	      commonResponse.setMessage("success");	  
+	      logger.info(commonResponse.getMessage());
+	      
+	      gregDemoSendMessageToRabbitMQAdater.sendMessagePayLoadToRabbitMQByBytes(gregDemoSendMessageToRabbitMQRequest);
+	      return ResponseEntity.status(HttpStatus.CREATED).body(commonResponse);
+	  }
+
 
 }

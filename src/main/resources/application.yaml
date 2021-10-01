@@ -17,6 +17,6 @@ restProxyPort: 9080
 spring:
   cloud:
     bus:
-      destination: camunda-get-started-spring-boot
+      destination: camunda-get-started-spring-boot-bus
 
     create: All tasks

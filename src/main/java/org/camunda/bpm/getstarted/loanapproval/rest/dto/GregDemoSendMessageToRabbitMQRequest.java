@@ -4,6 +4,8 @@ public class GregDemoSendMessageToRabbitMQRequest {
 	
 	private String orderId;
 
+	private Integer amount;
+	
 	private String exchange;
 
 	private String routingKey;
@@ -14,6 +16,14 @@ public class GregDemoSendMessageToRabbitMQRequest {
 
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
+	}
+
+	public Integer getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
 	}
 
 	public String getExchange() {
@@ -34,11 +44,10 @@ public class GregDemoSendMessageToRabbitMQRequest {
 
 	@Override
 	public String toString() {
-		return "GregDemoSendMessageToRabbitMQRequest [orderId=" + orderId + ", exchange=" + exchange + ", routingKey="
-				+ routingKey + "]";
+		return "GregDemoSendMessageToRabbitMQRequest [orderId=" + orderId + ", amount=" + amount + ", exchange="
+				+ exchange + ", routingKey=" + routingKey + "]";
 	}
-	
-	
+
 	
 	 
 }
