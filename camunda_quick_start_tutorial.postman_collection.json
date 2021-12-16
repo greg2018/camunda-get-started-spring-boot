@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "d8094172-b88f-4cb7-a399-dee7dac1c889",
+		"name": "camunda_quick_start_tutorial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "start_payment_process",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"variables\": {\r\n        \"amount\": {\r\n            \"value\": 20000,\r\n            \"type\": \"long\"\r\n        },\r\n        \"item\": {\r\n            \"value\": \"item-xyz\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/engine-rest/process-definition/key/payment-retrieval/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"process-definition",
+						"key",
+						"payment-retrieval",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "start_payment_process_need_appove",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"variables\": {\r\n        \"amount\": {\r\n            \"value\": 20000,\r\n            \"type\": \"long\"\r\n        },\r\n        \"item\": {\r\n            \"value\": \"item-xyz\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/engine-rest/process-definition/key/payment-retrieval/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"process-definition",
+						"key",
+						"payment-retrieval",
+						"start"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
