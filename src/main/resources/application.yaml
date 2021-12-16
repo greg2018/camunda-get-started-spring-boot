@@ -1,22 +1,9 @@
 server:
-  port: 9080
+  port: 8080
 camunda.bpm:
   admin-user:
     id: demo
     password: demo
     firstName: Demo
   filter:
-    create: All tasks
-    
-restProxyHost: localhost
-restProxyPort: 9080
-
-#rabbitmqHost: localhost
-#rabbitmqPort: 5672
-
-spring:
-  cloud:
-    bus:
-      destination: camunda-get-started-spring-boot-bus
-
     create: All tasks

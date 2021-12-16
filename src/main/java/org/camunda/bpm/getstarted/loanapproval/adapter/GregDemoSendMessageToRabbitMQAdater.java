@@ -1,5 +1,6 @@
 package org.camunda.bpm.getstarted.loanapproval.adapter;
 
+import org.camunda.bpm.getstarted.loanapproval.message.model.JobMessageResponse;
 import org.camunda.bpm.getstarted.loanapproval.rest.dto.GregDemoSendMessageToRabbitMQRequest;
 import org.camunda.bpm.getstarted.loanapproval.rest.dto.OrderMessagePayload;
 import org.slf4j.Logger;
@@ -70,7 +71,18 @@ public class GregDemoSendMessageToRabbitMQAdater {
 		    String jsonString = objectMapper.writeValueAsString(orderMessagePayload);
 		    rabbitTemplate.convertAndSend(exchange, routingKey,  jsonString.getBytes());
 		  }
-
 	  
+	  /*
+	   * Send message to job manager , data manager etc.
+	   */
+	  public void sendAdamOrchestratingMsg(JobMessageResponse jobMessageResponse) throws Exception {
+		    logger.info("+++++++adamOrchestratingMsgOut="+ jobMessageResponse.toString());
+		    String exchange="adam_p2p_topic";
+		    String routingKey="adam_orchestrating_out_routing_key";
+		    ObjectMapper objectMapper = new ObjectMapper();
+		    String jsonString = objectMapper.writeValueAsString(jobMessageResponse);
+		    rabbitTemplate.convertAndSend(exchange, routingKey,  jsonString.getBytes());
+	 }
+
 	  
 }

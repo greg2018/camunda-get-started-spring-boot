@@ -21,6 +21,8 @@ namespace GregPracticeDotnetAPI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://localhost:6001", "https://localhost:6003");
                 });
+
     }
 }

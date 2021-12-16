@@ -1,6 +1,7 @@
 package org.camunda.bpm.getstarted.loanapproval.rest.controller;
 
 import org.camunda.bpm.getstarted.loanapproval.adapter.GregDemoSendMessageToRabbitMQAdater;
+import org.camunda.bpm.getstarted.loanapproval.message.model.JobMessageResponse;
 import org.camunda.bpm.getstarted.loanapproval.rest.dto.CommonResponse;
 import org.camunda.bpm.getstarted.loanapproval.rest.dto.GregDemoSendMessageToRabbitMQRequest;
 import org.camunda.bpm.getstarted.loanapproval.rest.dto.LoanAppRequest;
@@ -61,5 +62,17 @@ public class GregDemoSendMessageToRabbitMQController {
 	      return ResponseEntity.status(HttpStatus.CREATED).body(commonResponse);
 	  }
 
-
+	 //Send message to adam job manager,data manager
+          @PostMapping(
+              path = "adam/orchestrating",
+              consumes = {MediaType.APPLICATION_JSON_VALUE},
+              produces = {MediaType.APPLICATION_JSON_VALUE})
+          public ResponseEntity<?> sendAdamOrchestratingMsg( @RequestBody JobMessageResponse jobMessageResponse) throws Exception {
+            logger.info(jobMessageResponse.toString());
+            CommonResponse commonResponse = new CommonResponse();
+            commonResponse.setResultFlag(true);
+            commonResponse.setMessage("success");
+            gregDemoSendMessageToRabbitMQAdater.sendAdamOrchestratingMsg(jobMessageResponse);
+            return ResponseEntity.status(HttpStatus.CREATED).body(commonResponse);
+          }
 }

@@ -72,15 +72,50 @@ namespace GregPracticeDotnetAPI.Controllers
                 customer.lastName="Qiu1689";
                 customer.birthday=DateTime.Now;
                  customer.age=100;
+                // var json = JsonConvert.SerializeObject(customer);
 
-                var json = JsonConvert.SerializeObject(customer);
+
+
+                var  jobMessageRequest=new JobMessageRequest();
+                jobMessageRequest.jobId=55889902;
+                jobMessageRequest.processInstanceId="processInstanceId-xxx-yyy";
+                jobMessageRequest.jobTypeId="P2P_STEP1";
+                jobMessageRequest.actionType="START_PROCESS";
+
+                 var json = JsonConvert.SerializeObject(jobMessageRequest);
                 var body = Encoding.UTF8.GetBytes(json);
 
                 string dest_topic="adam_p2p_topic";
-                string dest_rotingkey="p2p_updatecustomerfullnamemodel_routingkey";
+               // string dest_rotingkey="p2p_updatecustomerfullnamemodel_routingkey"; 
+                string dest_rotingkey="to_orchestrator_routing_key";
                 channel.BasicPublish(exchange: dest_topic, routingKey: dest_rotingkey, basicProperties: null, body: body);      
             }
         }
+
+
+     public void sendComplexMessageThree( JobMessageRequestWrapper  jobMessageRequestWrapper)
+        {
+          if (_connection == null){
+               CreateConnection();
+          }
+           // using(var channel = _connection.CreateModel())
+           var channel = _connection.CreateModel();
+            {
+                string dest_topic=jobMessageRequestWrapper.topic;
+                string dest_rotingkey=jobMessageRequestWrapper.routingKey;
+                var  jobMessageRequest=new JobMessageRequest();
+                jobMessageRequest.jobId=jobMessageRequestWrapper.jobId;
+                jobMessageRequest.processInstanceId=jobMessageRequestWrapper.processInstanceId;
+                jobMessageRequest.jobTypeId=jobMessageRequestWrapper.jobTypeId;
+                jobMessageRequest.actionType=jobMessageRequestWrapper.actionType;
+                 var json = JsonConvert.SerializeObject(jobMessageRequest);
+                var body = Encoding.UTF8.GetBytes(json);
+                channel.BasicPublish(exchange: dest_topic, routingKey: dest_rotingkey, basicProperties: null, body: body);      
+            }
+        }
+
+
+
 
 
         private void CreateConnection()

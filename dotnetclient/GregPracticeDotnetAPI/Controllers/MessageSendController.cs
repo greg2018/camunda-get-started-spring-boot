@@ -46,7 +46,7 @@ namespace GregPracticeDotnetAPI.Controllers
         }
 
 
-          [HttpPost]
+        [HttpPost]
         [Route("api/message2")]
         public AppUser CreateUser2(AppUser user)
         {
@@ -71,5 +71,33 @@ namespace GregPracticeDotnetAPI.Controllers
 
                  return user;
         }
+
+
+        [HttpPost]
+        [Route("api/message3")]
+        public  JobMessageRequestWrapper sendOrchestratorMessage( JobMessageRequestWrapper  jobMessageRequestWrapper)
+        {
+               _logger.LogInformation("+++++++++++"+jobMessageRequestWrapper.jobId);
+               _logger.Log(LogLevel.Information,"+++++Info=>"+ jobMessageRequestWrapper.processInstanceId);
+                
+              // MessageSender.sendMessage();
+                _logger.LogInformation("+++++Sending message from instance method");
+               string queueName="hello";
+                queueName="CustomerQueue";
+               
+
+                _logger.LogInformation("+++++ComplexMessageSender Sending message from instance method");
+                ComplexMessageSender  complexMessageSender=new  ComplexMessageSender(
+                    "localhost",
+                    queueName,
+                    "guest", 
+                    "guest"
+                );
+
+                complexMessageSender.sendComplexMessageThree(jobMessageRequestWrapper);
+
+                 return jobMessageRequestWrapper;
+        }
+
     }
 }

@@ -8,6 +8,7 @@ import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.runtime.MessageCorrelationResult;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.variable.Variables;
+import org.camunda.bpm.getstarted.loanapproval.message.model.JobMessageRequest;
 import org.camunda.bpm.getstarted.loanapproval.rest.dto.OrderMessagePayload;
 import org.camunda.bpm.getstarted.loanapproval.rest.dto.UpdateCustomerFullNameModel;
 import org.slf4j.Logger;
@@ -97,8 +98,7 @@ public class GregDemoReceiveMessageFromMQAdapter {
 		      exchange = @Exchange(value = "adam_p2p_topic", type = "topic", durable = "true"), //
 		      key = "p2p_updatecustomerfullnamemodel_routingkey"))
 	  @Transactional  
-	//  public void receiveUpdateCustomerFullNameModel(UpdateCustomerFullNameModel  updateCustomerFullNameModel) {
-	  public void receiveUpdateCustomerFullNameModel(byte[]  bytes) throws JsonParseException, JsonMappingException, IOException {
+	  public void receiveUpdateCustomerFullNameModel(byte[]  bytes) throws IOException{
 		 ObjectMapper objectMapper = new ObjectMapper();
 		 
 		
@@ -108,5 +108,21 @@ public class GregDemoReceiveMessageFromMQAdapter {
 		 UpdateCustomerFullNameModel  updateCustomerFullNameModel=objectMapper.readValue(bytes, UpdateCustomerFullNameModel.class);
 		logger.info("++++++updateCustomerFullNameModel.toString()is: "+ updateCustomerFullNameModel.toString());
 	  }
+	 
+	 
+	 @RabbitListener(bindings = @QueueBinding( //
+		      value = @Queue(value = "p2p_updatecustomerfullnamemodel", durable = "true"), //
+		      exchange = @Exchange(value = "adam_p2p_topic", type = "topic", durable = "true"), //
+		      key = "p2p_to_orchestrator_routing_key"))
+	  @Transactional  
+	  public void receiveAdamOrchestratingMsg(byte[]  bytes) throws IOException{
+		 ObjectMapper objectMapper = new ObjectMapper();		 
+		  logger.info("++++++GregDemoReceiveMessageFromMQAdapter->p2p_updatecustomerfullnamemodel_routingkey:");	
+		  String jsonArray=new String(bytes);
+		  logger.info(jsonArray);
+		  JobMessageRequest  jobMessageRequest=objectMapper.readValue(bytes, JobMessageRequest.class);
+		  logger.info("++++++updateCustomerFullNameModel.toString()is: "+ jobMessageRequest.toString());
+	  }
+
 
 }
